@@ -22,6 +22,14 @@ const userSchema = new mongoose.Schema({
     required: true,
     default: "user",
   },
+  tasksAssigned: {
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Task" }],
+    default: [],
+  },
+  tasksCompleted: {
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Task" }],
+    default: [],
+  },
   createdAt: {
     type: Date,
     default: () => new Date(),

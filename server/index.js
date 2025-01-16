@@ -1,10 +1,11 @@
 import express from "express";
 import { configDotenv } from "dotenv";
 import cors from "cors";
-import connectToDatabase from "./DB/database.js";
-import userRoutes from "./routes/users.route.js";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
+import connectToDatabase from "./DB/database.js";
+import userRoutes from "./routes/users.route.js";
+import taskRoutes from "./routes/tasks.route.js";
 
 const app = express();
 
@@ -20,9 +21,9 @@ app.use(cookieParser());
 
 connectToDatabase();
 
-
 // Use user routes
 app.use("/user", userRoutes);
+app.use("/tasks",taskRoutes);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
