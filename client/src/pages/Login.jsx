@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Button from "../components/Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "../helpers/AxiosSetup";
 import toast from "react-hot-toast";
@@ -14,13 +14,16 @@ const Login = () => {
     setShowPassword(!showPassword);
   };
 
+  const navigate = useNavigate();
+
   const onSubmit = async (data) => {
     try {
       const response = await axios.post("/users/login", data);
-      console.log("Login successful:", response.data);
+      const { token } = response.data;
+      localStorage.setItem("token", token); 
       toast.success("Login Successful");
+      navigate("/home");
     } catch (error) {
-      console.error("Error logging in:", error);
       if (error.response) {
         toast.error("Error: " + error.response.data.message);
       } else if (error.request) {
