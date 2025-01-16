@@ -30,7 +30,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="backdrop-blur-lg border-gray-200 w-[90%] relative top-5 rounded-lg">
+    <nav className="backdrop-blur-lg border-gray-200 w-[95%] mt-5 mb-5 rounded-lg shadow-xl">
       <div className="flex flex-wrap items-center justify-between mx-auto p-4">
         <div>
           <Link to="/home" className="flex items-center space-x-3">

@@ -24,7 +24,7 @@ const Profile = () => {
   }, []);
 
   return (
-    <div className="flex justify-center items-center h-full text-white">
+    <div className="flex justify-center items-center h-screen text-white">
       {user ? (
         <motion.div
           className="backdrop-blur-lg p-24 rounded-lg shadow-lg text-center"

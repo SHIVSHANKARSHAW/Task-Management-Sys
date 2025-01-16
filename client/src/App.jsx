@@ -12,7 +12,7 @@ function App() {
   return (
     <>
       <div
-        className="bg-cover bg-center bg-no-repeat h-screen"
+        className="bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${BGImg})` }}
       >
         <Toaster />
