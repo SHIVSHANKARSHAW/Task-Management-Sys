@@ -6,7 +6,7 @@ const Login = () => {
   return (
     <>
       <div className="h-full flex justify-center items-center ">
-        <div className="max-w-md relative flex flex-col px-16 py-16 rounded-lg text-white backdrop-blur-xl">
+        <div className="w-[50%] max-w-md relative flex flex-col px-16 py-16 rounded-lg text-white backdrop-blur-xl">
           <div className="text-4xl font-bold mb-2 text-center">
             Welcome Back !
           </div>
@@ -24,7 +24,7 @@ const Login = () => {
               <input
                 type="text"
                 id="email"
-                className="rounded border border-gray-200 text-md w-full font-bold leading-[18px] text-black tracking-[0px] appearance-none block h-11 m-0 p-[11px] focus:ring-2 ring-offset-2 ring-gray-900 outline-0"
+                className="rounded border border-gray-200 text-md w-full font-bold leading-[18px] text-black tracking-[0px] appearance-none block h-11 m-0 p-[11px]"
               />
             </div>
             <div className="block relative">
@@ -37,7 +37,7 @@ const Login = () => {
               <input
                 type="text"
                 id="password"
-                className="rounded border border-gray-200 text-md w-full font-bold leading-[18px] text-black tracking-[0px] appearance-none block h-11 m-0 p-[11px] focus:ring-2 ring-offset-2 ring-gray-900 outline-0"
+                className="rounded border border-gray-200 text-md w-full font-bold leading-[18px] text-black tracking-[0px] appearance-none block h-11 m-0 p-[11px]"
               />
             </div>
             <button
