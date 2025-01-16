@@ -15,15 +15,20 @@ const port = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+app.use(
+  cors({
+    origin: 'http://localhost:5173', // Ensure this matches the client URL
+    credentials: true,
+  })
+);
 app.use(morgan("dev"));
 app.use(cookieParser());
 
 connectToDatabase();
 
 // Use user routes
-app.use("/user", userRoutes);
-app.use("/tasks",taskRoutes);
+app.use("/users", userRoutes);
+app.use("/tasks", taskRoutes);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

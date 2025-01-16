@@ -76,7 +76,11 @@ export const getUserById = [
 
 // User login
 export const loginUser = async (req, res) => {
+  console.log(req.cookies.token);
   try {
+    if (req.cookies.token) {
+      return res.status(400).json({ message: "User already logged in" });
+    }
     const { email, password } = req.body;
     const user = await User.findOne({ email });
     if (!user) {
@@ -99,6 +103,8 @@ export const loginUser = async (req, res) => {
     res.cookie("token", token, {
       maxAge: 24 * 60 * 60 * 1000,
       httpOnly: true,
+      secure: process.env.NODE_ENV === "production", 
+      sameSite: "strict", 
     });
     res.status(200).json({ message: "Login successful", token });
   } catch (error) {

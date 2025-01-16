@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Signup = () => {
-  const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm();
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
@@ -16,15 +16,17 @@ const Signup = () => {
 
   const onSubmit = async (data) => {
     try {
-      const response = await axios.post("/user/new", data);
-
-      console.log("User created successfully:", response.data);
-
-      toast.success("User Created Succesfully")
-
+      const response = await axios.post("/users/new", data); // Ensure this matches the server route
+      toast.success("User Created Successfully");
     } catch (error) {
-      console.error("Error creating user:", error.response.data);
-      toast.error("Error : ",error.response.data);
+      console.log(error);
+      if (error.response) {
+        toast.error("Error: " + error.response.data.message);
+      } else if (error.request) {
+        toast.error("Network Error: Could not reach the server");
+      } else {
+        toast.error("An error occurred");
+      }
     }
   };
 
@@ -52,7 +54,7 @@ const Signup = () => {
                 {...register("username", { required: true })}
                 className="rounded border border-gray-200 text-md w-full font-bold leading-[18px] text-black tracking-[0px] appearance-none block h-11 m-0 p-[11px]"
               />
-              {errors && <span className="text-red-500">Username is required</span>}
+              {errors.username && <span className="text-red-500">Username is required</span>}
             </div>
             <div className="block relative">
               <label
@@ -67,7 +69,7 @@ const Signup = () => {
                 {...register("email", { required: true })}
                 className="rounded border border-gray-200 text-md w-full font-bold leading-[18px] text-black tracking-[0px] appearance-none block h-11 m-0 p-[11px]"
               />
-              {errors && <span className="text-red-500">Email is required</span>}
+              {errors.email && <span className="text-red-500">Email is required</span>}
             </div>
             <div className="block relative">
               <label
@@ -90,7 +92,7 @@ const Signup = () => {
                   {showPassword ? <FaEyeSlash /> : <FaEye />}
                 </span>
               </div>
-              {errors && <span className="text-red-500">Password is required</span>}
+              {errors.password && <span className="text-red-500">Password is required</span>}
             </div>
             <button
               type="submit"

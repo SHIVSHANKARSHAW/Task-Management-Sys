@@ -21,3 +21,7 @@ input{
   caret-color: orangered;
   outline: none;
 }
+
+button{
+  outline: none;
+}
