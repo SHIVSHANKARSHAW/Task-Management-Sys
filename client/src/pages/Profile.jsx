@@ -24,10 +24,10 @@ const Profile = () => {
   }, []);
 
   return (
-    <div className="flex justify-center items-center h-screen text-white">
+    <div className="flex justify-center items-center text-white">
       {user ? (
         <motion.div
-          className="backdrop-blur-lg p-24 rounded-lg shadow-lg text-center"
+          className="backdrop-blur-lg p-24 text-center"
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5 }}

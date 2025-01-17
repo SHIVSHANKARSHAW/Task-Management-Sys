@@ -5,7 +5,7 @@ import Body from "../components/Body";
 const HomePage = () => {
   return (
     <>
-      <div className="h-full w-full flex flex-col items-center">
+      <div className="min-h-screen w-full flex flex-col items-center">
         {/* Navbar  */}
         <Navbar />
         {/* Body */}

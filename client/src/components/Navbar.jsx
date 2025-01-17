@@ -30,7 +30,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="backdrop-blur-lg border-gray-200 w-[95%] mt-5 mb-5 rounded-lg shadow-xl">
+    <nav className="backdrop-blur-xl border-gray-200 w-[95%] mt-5 mb-5 rounded-lg shadow-xl">
       <div className="flex flex-wrap items-center justify-between mx-auto p-4">
         <div>
           <Link to="/home" className="flex items-center space-x-3">
@@ -42,7 +42,7 @@ const Navbar = () => {
         </div>
         <div className="flex items-center gap-10">
           <div>
-            <Link to="/profile" className="flex items-center space-x-3">
+            <Link to="/home/profile" className="flex items-center space-x-3">
               <img
                 src={profile}
                 className="h-12 w-12 rounded-full"
