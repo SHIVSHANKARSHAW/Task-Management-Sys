@@ -58,7 +58,7 @@ const Profile = () => {
           </motion.p>
         </motion.div>
       ) : (
-        <p>Loading user details...</p>
+        <p className="flex h-full place-content-center">Loading user details...</p>
       )}
     </div>
   );
