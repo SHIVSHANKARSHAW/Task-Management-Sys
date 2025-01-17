@@ -11,6 +11,10 @@ const taskSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  priority: {
+    type: String,
+    required: true,
+  },
   assignedBy: {
     type: String,
     required: true,
@@ -30,7 +34,7 @@ const taskSchema = new mongoose.Schema({
   },
   completedAt: {
     type: Date,
-    default: () => new Date(),
+    default: null,
   },
   createdAt: {
     type: Date,

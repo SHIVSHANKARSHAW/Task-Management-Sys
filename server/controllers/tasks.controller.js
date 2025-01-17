@@ -6,13 +6,27 @@ export const createTask = [
   verifyToken,
   async (req, res) => {
     try {
-      const { title, description, assignedBy, assignedTo, dueDate } = req.body;
-      const newTask = new Task({
+      const {
         title,
         description,
+        priority,
         assignedBy,
         assignedTo,
         dueDate,
+        status = 0,
+        createdAt = new Date(),
+        completedAt = null,
+      } = req.body;
+      const newTask = new Task({
+        title,
+        description,
+        priority,
+        assignedBy,
+        assignedTo,
+        dueDate,
+        status,
+        createdAt,
+        completedAt,
       });
       await newTask.save();
       res.status(201).json(newTask);
@@ -59,6 +73,7 @@ export const updateTaskById = [
       const {
         title,
         description,
+        priority,
         assignedBy,
         assignedTo,
         status,
@@ -71,6 +86,7 @@ export const updateTaskById = [
       }
       task.title = title;
       task.description = description;
+      task.priority = priority;
       task.assignedBy = assignedBy;
       task.assignedTo = assignedTo;
       task.status = status;

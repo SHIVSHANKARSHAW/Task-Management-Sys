@@ -37,7 +37,7 @@ const Signup = () => {
 
   return (
     <>
-      <div className="h-full flex justify-center items-center ">
+      <div className="h-screen flex justify-center items-center ">
         <div className="w-[50%] max-w-md  relative flex flex-col px-16 py-16 rounded-lg text-white backdrop-blur-xl">
           <div className="text-4xl font-bold mb-2 text-center">Welcome!</div>
           <div className="text-sm font-semibold mb-4 text-center ">

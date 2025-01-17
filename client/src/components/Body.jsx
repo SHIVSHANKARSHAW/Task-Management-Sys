@@ -10,6 +10,7 @@ import Tasks from "../pages/Tasks";
 import Notification from "../pages/Notification";
 import Today from "../pages/Today";
 import CreateTask from "../pages/CreateTask";
+import Error from "../pages/Error";
 
 const Body = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -28,7 +29,7 @@ const Body = () => {
         className="h-full backdrop-blur-xl rounded-sm font-semibold"
         aria-label="Sidebar"
       >
-        <div className="flex  h-full px-3 py-4 overflow-y-auto">
+        <div className="flex h-full px-3 py-4 overflow-y-auto">
           <ul className="space-y-2 font-medium">
             {/* Menu Button */}
             <li>
@@ -50,7 +51,7 @@ const Body = () => {
             {/* Dashboard */}
             <li>
               <Link
-                to="/home/dashboard"
+                to="/home/"
                 className={`flex items-center p-2 rounded-lg text-white  ${
                   isSidebarOpen
                     ? "hover:bg-white hover:text-black"
@@ -259,12 +260,13 @@ const Body = () => {
       <div className="flex-1 p-10 backdrop-blur-xl text-white rounded-sm h-full overflow-y-scroll ">
         <Routes>
           <Route path="/profile" element={<Profile />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/" element={<Dashboard />} />
           <Route path="/calender" element={<Calender />} />
           <Route path="/tasks" element={<Tasks />} />
           <Route path="/updates" element={<Notification />} />
           <Route path="/today" element={<Today />} />
           <Route path="/create-task" element={<CreateTask />} />
+          <Route path="*" element={<Error />} />
         </Routes>
       </div>
     </div>
