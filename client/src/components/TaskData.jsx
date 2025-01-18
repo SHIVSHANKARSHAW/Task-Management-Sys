@@ -23,7 +23,6 @@ const TaskData = () => {
         console.error("Error fetching task:", error);
       }
     };
-
     fetchTask();
   }, [id]);
 

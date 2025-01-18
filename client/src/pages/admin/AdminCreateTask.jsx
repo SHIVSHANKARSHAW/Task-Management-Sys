@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "../../components/Button";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "../../helpers/AxiosSetup";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
 import { useUser } from "../../context/ContextApi";
 
 const AdminCreateTask = () => {
@@ -12,18 +11,34 @@ const AdminCreateTask = () => {
   const [priority, setPriority] = useState("Medium");
   const [dueDate, setDueDate] = useState(new Date());
   const [description, setDescription] = useState("");
-  const navigate = useNavigate();
+  const [users, setUsers] = useState([]);
+  const [assignedTo, setAssignedTo] = useState("");
   const { user } = useUser();
 
-  if (user === null) {
-    navigate("/auth/login");
-  }
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await axios.get("/users/viewall", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setUsers(response.data);
+      } catch (error) {
+        toast.error("Failed to fetch users");
+        console.error("Error fetching users:", error);
+      }
+    };
+
+    fetchUsers();
+  }, []);
 
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.post(
+      const taskResponse = await axios.post(
         "/tasks/new",
         {
           title,
@@ -31,7 +46,7 @@ const AdminCreateTask = () => {
           dueDate,
           description,
           assignedBy: user._id,
-          assignedTo: user._id,
+          assignedTo,
         },
         {
           headers: {
@@ -39,14 +54,29 @@ const AdminCreateTask = () => {
           },
         }
       );
+      const taskId = taskResponse.data._id;
+
+      await axios.put(
+        `/users/edit/${assignedTo}`,
+        {
+          tasksAssigned: taskId,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
       toast.success("Task created successfully");
       setTitle("");
       setPriority("Medium");
       setDueDate(new Date());
       setDescription("");
+      setAssignedTo("");
     } catch (error) {
       toast.error("Failed to create task");
-      console.log(error);
+      console.error("Error creating task:", error);
     }
   };
 
@@ -111,6 +141,31 @@ const AdminCreateTask = () => {
         </div>
         {/* Row 2 */}
         <div className="flex flex-wrap -mx-3 mb-6">
+          {/* Assign Task To */}
+          <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+            <label
+              className="block uppercase tracking-wide text-xs font-bold mb-2"
+              htmlFor="assignedTo"
+            >
+              Assign Task To
+            </label>
+            <select
+              className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              id="assignedTo"
+              value={assignedTo}
+              onChange={(e) => setAssignedTo(e.target.value)}
+            >
+              <option value="">Select User</option>
+              {users.map((user) => (
+                <option key={user._id} value={user._id}>
+                  {user.username}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+        {/* Row 3 */}
+        <div className="flex flex-wrap -mx-3 mb-6">
           {/* Description */}
           <div className="w-full px-3">
             <label
@@ -132,7 +187,6 @@ const AdminCreateTask = () => {
             </p>
           </div>
         </div>
-
         <button type="submit">
           <Button content="Submit" />
         </button>

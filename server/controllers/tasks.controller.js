@@ -1,4 +1,5 @@
 import Task from "../models/tasks.models.js";
+import User from "../models/users.models.js";
 import { verifyToken } from "../helper/auth.js";
 
 // Create a new task
@@ -18,19 +19,41 @@ export const createTask = [
         createdAt = new Date(),
         completedAt = null,
       } = req.body;
+
+      let assignedToUsers = assignedTo;
+
+      if (!assignedTo) {
+        const users = await User.find({ access: { $ne: "admin" } });
+        assignedToUsers = users.map((user) => user._id);
+      }
+
       const newTask = new Task({
         title,
         description,
         priority,
         response,
         assignedBy,
-        assignedTo,
+        assignedTo: assignedToUsers,
         dueDate,
         status,
         createdAt,
         completedAt,
       });
+
       await newTask.save();
+
+      if (!assignedTo) {
+        const users = await User.find({ access: { $ne: "admin" } });
+        for (const user of users) {
+          user.tasksAssigned.push(newTask._id);
+          await user.save();
+        }
+      } else {
+        const user = await User.findById(assignedTo);
+        user.tasksAssigned.push(newTask._id);
+        await user.save();
+      }
+
       res.status(201).json(newTask);
     } catch (error) {
       res.status(400).json({ message: error.message });
@@ -79,7 +102,7 @@ export const updateTaskById = [
         response,
         assignedBy,
         assignedTo,
-        status,
+        status = 0,
         dueDate,
         completedAt,
       } = req.body;

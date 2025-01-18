@@ -19,7 +19,10 @@ const Tasks = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        setTasks(response.data);
+        const userTasks = response.data.filter(
+          (task) => task.assignedTo === user._id
+        );
+        setTasks(userTasks);
       } catch (error) {
         console.error("Error fetching tasks:", error);
       }
@@ -61,9 +64,9 @@ const Tasks = () => {
   }));
 
   return (
-       <Paper style={{ height: 515, width: "100%" }}>
+    <Paper style={{ height: 515, width: "100%" }}>
       <DataGrid rows={rows} columns={columns} pageSize={5} />
-    </Paper>   
+    </Paper>
   );
 };
 

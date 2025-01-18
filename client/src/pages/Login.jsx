@@ -22,7 +22,7 @@ const Login = () => {
       const { token } = response.data;
       localStorage.setItem("token", token); 
       toast.success("Login Successful");
-      navigate("/home");
+      navigate("/home/dashboard");
     } catch (error) {
       if (error.response) {
         toast.error("Error: " + error.response.data.message);
