@@ -8,6 +8,7 @@ import Button from "../components/Button";
 
 const Tasks = () => {
   const [tasks, setTasks] = useState([]);
+  const [users, setUsers] = useState([]);
   const { user } = useUser();
 
   useEffect(() => {
@@ -28,16 +29,47 @@ const Tasks = () => {
       }
     };
 
+    const fetchUsers = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await axios.get("/users/viewall", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setUsers(response.data);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      }
+    };
+
     if (user) {
       fetchTasks();
+      fetchUsers();
     }
   }, [user]);
+
+  const getUserNameById = (userId) => {
+    const user = users.find((user) => user._id === userId);
+    return user ? user.username : "Unknown";
+  };
+
+  const getStatusText = (status) => {
+    switch (status) {
+      case 1:
+        return "Task Completed";
+      case -1:
+        return "Task Rejected";
+      default:
+        return "Task Assigned";
+    }
+  };
 
   const columns = [
     { field: "id", headerName: "ID", width: 90 },
     { field: "title", headerName: "Title", width: 150 },
     { field: "priority", headerName: "Priority", width: 110 },
-    { field: "status", headerName: "Status", width: 110 },
+    { field: "status", headerName: "Status", width: 150 },
     { field: "dueDate", headerName: "Due Date", width: 150 },
     { field: "description", headerName: "Description", width: 150 },
     { field: "assignedBy", headerName: "Assigned By", width: 150 },
@@ -57,10 +89,10 @@ const Tasks = () => {
     id: task._id,
     title: task.title,
     priority: task.priority,
-    status: task.status,
+    status: getStatusText(task.status),
     dueDate: new Date(task.dueDate).toLocaleDateString(),
     description: task.description,
-    assignedBy: task.assignedBy,
+    assignedBy: getUserNameById(task.assignedBy),
   }));
 
   return (

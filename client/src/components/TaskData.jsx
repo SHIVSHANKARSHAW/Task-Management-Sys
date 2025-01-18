@@ -3,11 +3,15 @@ import { useParams } from "react-router-dom";
 import axios from "../helpers/AxiosSetup";
 import toast from "react-hot-toast";
 import Button from "./Button";
+import { useUser } from "../context/ContextApi";
+
 const TaskData = () => {
   const { id } = useParams();
   const [task, setTask] = useState(null);
   const [response, setResponse] = useState("");
   const [showResponse, setShowResponse] = useState(false);
+  const [users, setUsers] = useState([]);
+  const { user } = useUser();
 
   useEffect(() => {
     const fetchTask = async () => {
@@ -23,8 +27,26 @@ const TaskData = () => {
         console.error("Error fetching task:", error);
       }
     };
-    fetchTask();
-  }, [id]);
+
+    const fetchUsers = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await axios.get("/users/viewall", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setUsers(response.data);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      }
+    };
+
+    if (user) {
+      fetchTask();
+      fetchUsers();
+    }
+  }, [id, user]);
 
   const handleResponseSubmit = async () => {
     try {
@@ -65,6 +87,22 @@ const TaskData = () => {
     }
   };
 
+  const getUserNameById = (userId) => {
+    const user = users.find((user) => user._id === userId);
+    return user ? user.username : "Unknown";
+  };
+
+  const getStatusText = (status) => {
+    switch (status) {
+      case 1:
+        return "Task Completed";
+      case -1:
+        return "Task Rejected";
+      default:
+        return "Task Assigned";
+    }
+  };
+
   return (
     <div className="flex justify-center items-center text-white">
       {task ? (
@@ -75,7 +113,7 @@ const TaskData = () => {
               <strong>Priority:</strong> {task.priority}
             </p>
             <p className="text-xl mb-2">
-              <strong>Status:</strong> {task.status}
+              <strong>Status:</strong> {getStatusText(task.status)}
             </p>
             <p className="text-xl mb-2">
               <strong>Task Created At :</strong>{" "}
@@ -89,10 +127,10 @@ const TaskData = () => {
               <strong>Description:</strong> {task.description}
             </p>
             <p className="text-xl mb-2">
-              <strong>Assigned By:</strong> {task.assignedBy}
+              <strong>Assigned By:</strong> {getUserNameById(task.assignedBy)}
             </p>
           </div>
-          <button onClick={() => setShowResponse(!showResponse)}>
+          <button onClick={() => setShowResponse(!showResponse)} className="flex justify-start">
             <Button content={showResponse ? "Cancel" : "Add Response"} py="3" />
           </button>
           {showResponse && (
@@ -104,7 +142,7 @@ const TaskData = () => {
                 id="response"
                 value={response}
                 onChange={(e) => setResponse(e.target.value)}
-                className="w-full p-2 rounded-lg text-black outline-none"
+                className="w-full p-2 rounded-lg text-black outline-none mb-4"
                 rows="4"
               ></textarea>
               <button onClick={handleResponseSubmit}>

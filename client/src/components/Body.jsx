@@ -60,7 +60,7 @@ const Body = () => {
                 {/* Dashboard */}
                 <li>
                   <Link
-                    to="/home/admin"
+                    to="/home/admin/dashboard"
                     className={`flex items-center p-2 rounded-lg text-white  ${
                       isSidebarOpen
                         ? "hover:bg-white hover:text-black"
