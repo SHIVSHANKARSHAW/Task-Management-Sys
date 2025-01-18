@@ -2,10 +2,10 @@ import React, { useEffect } from "react";
 import BgImg from "../assets/Bg-2.jpg";
 import Button from "../components/Button";
 import { Link } from "react-router-dom";
-
+import { useUser } from "../context/ContextApi";
 const LandingPage = () => {
   
-  const user = localStorage.getItem("token");
+  const { user } = useUser();
 
   return (
     <>

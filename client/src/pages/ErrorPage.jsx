@@ -35,7 +35,7 @@ const ErrorPage = () => {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5, delay: 0.7 }}
       >
-        <Link to="/home">
+        <Link to="/">
           <Button content="Back to Home" />
         </Link>
       </motion.div>

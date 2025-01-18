@@ -15,7 +15,6 @@ export const createUser = async (req, res) => {
       tasksCompleted = [],
       createdAt = new Date(),
     } = req.body;
-    console.log("Received body:", req.body);
 
     // Check if user already exists
     const existingUser = await User.findOne({ email });

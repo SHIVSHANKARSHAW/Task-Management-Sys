@@ -1,27 +1,10 @@
-import React, { useEffect, useState } from "react";
-import axios from "../helpers/AxiosSetup";
+import React from "react";
 import { motion } from "framer-motion";
+import { useUser } from "../context/ContextApi";
 
 const Profile = () => {
-  const [user, setUser] = useState(null);
 
-  useEffect(() => {
-    const fetchUserDetails = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        const response = await axios.get("/users/current", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setUser(response.data);
-      } catch (error) {
-        console.error("Error fetching user details:", error);
-      }
-    };
-
-    fetchUserDetails();
-  }, []);
+  const { user } = useUser();
 
   return (
     <div className="flex justify-center items-center text-white">
@@ -40,6 +23,14 @@ const Profile = () => {
           >
             Welcome, {user.username}!
           </motion.h1>
+          <motion.p
+            className="text-xl mb-2"
+            initial={{ y: -20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.5 }}
+          >
+            ID: {user._id}
+          </motion.p>
           <motion.p
             className="text-2xl mb-2"
             initial={{ y: -20, opacity: 0 }}
@@ -65,3 +56,4 @@ const Profile = () => {
 };
 
 export default Profile;
+

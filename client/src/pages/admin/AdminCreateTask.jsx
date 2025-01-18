@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import Button from "../components/Button";
+import Button from "../../components/Button";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import axios from "../helpers/AxiosSetup";
+import axios from "../../helpers/AxiosSetup";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { useUser } from "../context/ContextApi";
+import { useUser } from "../../context/ContextApi";
 
-const CreateTask = () => {
+const AdminCreateTask = () => {
   const [title, setTitle] = useState("");
   const [priority, setPriority] = useState("Medium");
   const [dueDate, setDueDate] = useState(new Date());
@@ -141,4 +141,4 @@ const CreateTask = () => {
   );
 };
 
-export default CreateTask;
+export default AdminCreateTask;

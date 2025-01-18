@@ -1,8 +1,13 @@
 import React from 'react'
 
 const Dashboard = () => {
+
   return (
-    <div>Dashboard</div>
+    <>
+    <div className='p-10'>
+      Dashboard
+    </div>
+    </>
   )
 }
 

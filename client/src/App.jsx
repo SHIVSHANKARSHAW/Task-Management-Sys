@@ -6,11 +6,12 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import { Toaster } from "react-hot-toast";
 import HomePage from "./pages/HomePage";
-import ErrorPage from "./pages/ErrorPage"
+import ErrorPage from "./pages/ErrorPage";
+import { UserProvider } from "./context/ContextApi";
 
 function App() {
   return (
-    <>
+    <UserProvider>
       <div
         className="bg-cover bg-center bg-no-repeat overflow-x-hidden"
         style={{ backgroundImage: `url(${BGImg})` }}
@@ -24,7 +25,7 @@ function App() {
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </div>
-    </>
+    </UserProvider>
   );
 }
 

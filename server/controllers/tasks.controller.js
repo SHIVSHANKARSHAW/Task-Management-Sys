@@ -9,6 +9,7 @@ export const createTask = [
       const {
         title,
         description,
+        response = null,
         priority,
         assignedBy,
         assignedTo,
@@ -21,6 +22,7 @@ export const createTask = [
         title,
         description,
         priority,
+        response,
         assignedBy,
         assignedTo,
         dueDate,
@@ -74,6 +76,7 @@ export const updateTaskById = [
         title,
         description,
         priority,
+        response,
         assignedBy,
         assignedTo,
         status,
@@ -86,6 +89,7 @@ export const updateTaskById = [
       }
       task.title = title;
       task.description = description;
+      task.response = response;
       task.priority = priority;
       task.assignedBy = assignedBy;
       task.assignedTo = assignedTo;
@@ -93,6 +97,58 @@ export const updateTaskById = [
       task.dueDate = dueDate;
       task.completedAt = completedAt;
       const updatedTask = await task.save();
+      res.status(200).json(updatedTask);
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  },
+];
+
+// Add response to task
+export const addResponse = [
+  verifyToken,
+  async (req, res) => {
+    try {
+      const { response } = req.body;
+
+      if (!response) {
+        return res.status(400).json({ message: "Response is required" });
+      }
+
+      const task = await Task.findById(req.params.id);
+      if (!task) {
+        return res.status(404).json({ message: "Task not found" });
+      }
+
+      task.response = response;
+      const updatedTask = await task.save();
+
+      res.status(200).json(updatedTask);
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  },
+];
+
+// Update Status
+export const updateStatus = [
+  verifyToken,
+  async (req, res) => {
+    try {
+      const { status } = req.body;
+
+      if (!status) {
+        return res.status(400).json({ message: "status is required" });
+      }
+
+      const task = await Task.findById(req.params.id);
+      if (!task) {
+        return res.status(404).json({ message: "Task not found" });
+      }
+
+      task.status = status;
+      const updatedTask = await task.save();
+
       res.status(200).json(updatedTask);
     } catch (error) {
       res.status(400).json({ message: error.message });
