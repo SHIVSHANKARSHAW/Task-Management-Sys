@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+
 import UserKPIs from "../components/UserKPIs";
 import Upcoming from "../components/Upcoming";
 import Graphs from "../components/Graphs";
@@ -51,12 +53,20 @@ const Dashboard = () => {
 
   return (
     <>
-      <div className="p-4 flex-col space-y-10">
-        <UserKPIs />
+      <motion.div
+        className="p-4 flex-col space-y-10"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 20 }}
+      >
+
+        <h1 className="text-3xl font-semibold text-center mt-2">Dashboard</h1>
+        <UserKPIs tasks={tasks} users={users} />
         <Search tasks={tasks} users={users} />
         <Graphs tasks={tasks} users={users} />
         <Upcoming tasks={tasks} users={users} />
-      </div>
+      </motion.div>
+
     </>
   );
 };

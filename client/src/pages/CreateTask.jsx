@@ -52,6 +52,10 @@ const CreateTask = () => {
 
   return (
     <div className="h-full w-full p-10">
+      <h1 className="text-3xl font-semibold text-center mb-6">
+        Begin A New Task{" "}
+      </h1>
+
       <form
         className="w-full flex flex-col place-content-center"
         onSubmit={submitHandler}

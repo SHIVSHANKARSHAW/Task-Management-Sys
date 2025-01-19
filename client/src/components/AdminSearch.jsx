@@ -5,9 +5,8 @@ import { Link } from "react-router-dom";
 import { useUser } from "../context/ContextApi";
 import Button from "../components/Button";
 import { FaSearch } from "react-icons/fa";
-import moment from "moment-timezone";
 
-const Search = ({tasks, users}) => {
+const AdminSearch = ({ tasks, users }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const { user } = useUser();
 
@@ -56,7 +55,7 @@ const Search = ({tasks, users}) => {
     title: task.title,
     priority: task.priority,
     status: getStatusText(task.status),
-    dueDate: moment(task.dueDate).tz("Asia/Kolkata").format("DD-MM-YYYY"),
+    dueDate: new Date(task.dueDate).toLocaleDateString(),
     description: task.description,
     assignedBy: getUserNameById(task.assignedBy),
   }));
@@ -80,4 +79,4 @@ const Search = ({tasks, users}) => {
   );
 };
 
-export default Search;
+export default AdminSearch;

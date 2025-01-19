@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import axios from "../helpers/AxiosSetup";
 import { useUser } from "../context/ContextApi";
 import Button from "../components/Button";
+import moment from "moment-timezone";
+
 
 const Tasks = () => {
   const [tasks, setTasks] = useState([]);
@@ -90,7 +92,7 @@ const Tasks = () => {
     title: task.title,
     priority: task.priority,
     status: getStatusText(task.status),
-    dueDate: new Date(task.dueDate).toLocaleDateString(),
+    dueDate: moment(task.dueDate).tz("Asia/Kolkata").format("DD-MM-YYYY"),
     description: task.description,
     assignedBy: getUserNameById(task.assignedBy),
   }));

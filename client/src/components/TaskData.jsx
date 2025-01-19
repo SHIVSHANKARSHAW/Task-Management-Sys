@@ -4,6 +4,7 @@ import axios from "../helpers/AxiosSetup";
 import toast from "react-hot-toast";
 import Button from "./Button";
 import { useUser } from "../context/ContextApi";
+import moment from "moment";
 
 const TaskData = () => {
   const { id } = useParams();
@@ -104,9 +105,9 @@ const TaskData = () => {
   };
 
   return (
-    <div className="flex justify-center items-center text-white">
+    <div className="flex justify-center items-center text-white ">
       {task ? (
-        <div className="backdrop-blur-lg p-8 text-center w-full">
+        <div className="backdrop-blur-lg p-8 text-center w-full space-y-8">
           <h1 className="text-4xl font-bold mb-4">{task.title}</h1>
           <div className="text-left">
             <p className="text-xl mb-2">
@@ -117,11 +118,11 @@ const TaskData = () => {
             </p>
             <p className="text-xl mb-2">
               <strong>Task Created At :</strong>{" "}
-              {new Date(task.createdAt).toLocaleDateString()}
+              {moment(task.createdAt).format('DD MMM YYYY')}
             </p>
             <p className="text-xl mb-2">
               <strong>Due Date:</strong>{" "}
-              {new Date(task.dueDate).toLocaleDateString()}
+              {moment(task.dueDate).format('DD MMM YYYY')}
             </p>
             <p className="text-xl mb-2">
               <strong>Description:</strong> {task.description}
@@ -150,7 +151,7 @@ const TaskData = () => {
               </button>
             </div>
           )}
-          <div className="mt-4 flex justify-center gap-4">
+          <div className="mt-4 flex gap-4">
             <button onClick={() => updateStatus(1)}>
               <Button content="Mark as Completed" py="3" />
             </button>
