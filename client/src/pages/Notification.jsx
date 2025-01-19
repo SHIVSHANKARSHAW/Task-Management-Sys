@@ -40,12 +40,12 @@ const Notification = () => {
   };
 
   return (
-    <div className="flex-col h-full space-y-5">
+    <div className="flex-col h-full space-y-5 p-4">
       {noticeData.map((notice, index) => (
-        <div key={index} className="bg-white w-full text-black space-x-8">
-          <span className="">{formatDate(notice.date)}</span>
-          <span className="">{notice.heading}</span>
-          <span className="">{notice.body}</span>
+        <div key={index} className="bg-white w-full text-black flex space-x-8 px-4 py-2 rounded-lg shadow-md">
+          <span className="whitespace-nowrap overflow-hidden text-ellipsis">{formatDate(notice.date)}</span>
+          <span className="whitespace-nowrap overflow-hidden text-ellipsis font-semibold">{notice.heading}</span>
+          <span className="whitespace-nowrap overflow-hidden text-ellipsis flex-1">{notice.body}</span>
         </div>
       ))}
     </div>
