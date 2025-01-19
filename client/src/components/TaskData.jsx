@@ -118,11 +118,11 @@ const TaskData = () => {
             </p>
             <p className="text-xl mb-2">
               <strong>Task Created At :</strong>{" "}
-              {moment(task.createdAt).format('DD MMM YYYY')}
+              {moment(task.createdAt).format("DD MMM YYYY")}
             </p>
             <p className="text-xl mb-2">
               <strong>Due Date:</strong>{" "}
-              {moment(task.dueDate).format('DD MMM YYYY')}
+              {moment(task.dueDate).format("DD MMM YYYY")}
             </p>
             <p className="text-xl mb-2">
               <strong>Description:</strong> {task.description}
@@ -130,8 +130,18 @@ const TaskData = () => {
             <p className="text-xl mb-2">
               <strong>Assigned By:</strong> {getUserNameById(task.assignedBy)}
             </p>
+            {(user.access === "admin") & (task.completedAt != null) ? (
+              <p className="text-xl mb-2">
+                <strong>Task Concluded On :</strong> {moment(task.completedAt).format("DD MMM YYYY")}
+              </p>
+            ) : (
+              <></>
+            )}
           </div>
-          <button onClick={() => setShowResponse(!showResponse)} className="flex justify-start">
+          <button
+            onClick={() => setShowResponse(!showResponse)}
+            className="flex justify-start"
+          >
             <Button content={showResponse ? "Cancel" : "Add Response"} py="3" />
           </button>
           {showResponse && (

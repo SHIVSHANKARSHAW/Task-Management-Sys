@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar";
 import Body from "../components/Body";
 import { useUser } from "../context/ContextApi";
 import { useNavigate } from 'react-router-dom';
+import Footer from "../components/Footer";
 
 const HomePage = () => {
   const { user } = useUser();
@@ -21,6 +22,7 @@ const HomePage = () => {
   }, [user]);
 
   return (
+    <>
     <div className="min-h-screen w-full flex flex-col items-center">
       {/* Navbar */}
       <Navbar />
@@ -29,6 +31,8 @@ const HomePage = () => {
         <Body />
       </div>
     </div>
+    <Footer />
+    </>
   );
 };
 

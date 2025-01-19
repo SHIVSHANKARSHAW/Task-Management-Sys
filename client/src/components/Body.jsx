@@ -418,7 +418,6 @@ const Body = () => {
           <Route path="/tasks" element={<Tasks />} />
           <Route path="/today" element={<Today />} />
           <Route path="/task-data/:id" element={<TaskData />} />
-
           <Route path="*" element={<Error />} />
         </Routes>
       </div>

@@ -47,7 +47,7 @@ const Calender = () => {
   };
 
   return (
-    <div className="h-full w-full text-white">
+    <div className="h-full w-full text-white py-6">
       <Calendar
         localizer={localizer}
         events={events}

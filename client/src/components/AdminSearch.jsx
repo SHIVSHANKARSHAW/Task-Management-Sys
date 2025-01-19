@@ -5,9 +5,12 @@ import { Link } from "react-router-dom";
 import { useUser } from "../context/ContextApi";
 import Button from "../components/Button";
 import { FaSearch } from "react-icons/fa";
+import moment from "moment-timezone";
+
 
 const AdminSearch = ({ tasks, users }) => {
   const [searchTerm, setSearchTerm] = useState("");
+
   const { user } = useUser();
 
   const getUserNameById = (userId) => {
@@ -33,7 +36,9 @@ const AdminSearch = ({ tasks, users }) => {
     { field: "status", headerName: "Status", width: 150 },
     { field: "dueDate", headerName: "Due Date", width: 100 },
     { field: "description", headerName: "Description", width: 150 },
+    { field: "assignedTo", headerName: "Assigned To", width: 120 },
     { field: "assignedBy", headerName: "Assigned By", width: 120 },
+  
     {
       field: "actions",
       headerName: "Actions",
@@ -55,8 +60,9 @@ const AdminSearch = ({ tasks, users }) => {
     title: task.title,
     priority: task.priority,
     status: getStatusText(task.status),
-    dueDate: new Date(task.dueDate).toLocaleDateString(),
+    dueDate: moment(task.dueDate).tz("Asia/Kolkata").format("DD-MM-YYYY"),
     description: task.description,
+    assignedTo: getUserNameById(task.assignedTo),
     assignedBy: getUserNameById(task.assignedBy),
   }));
 

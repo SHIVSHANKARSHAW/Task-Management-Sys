@@ -5,6 +5,7 @@ import axios from "../../helpers/AxiosSetup";
 import { useUser } from "../../context/ContextApi";
 import Graphs from "../../components/Graphs";
 import Upcoming from "../../components/Upcoming";
+import { motion } from "framer-motion";
 
 const AdminDashboard = () => {
   const [tasks, setTasks] = useState([]);
@@ -48,12 +49,18 @@ const AdminDashboard = () => {
 
   return (
     <>
-      <div className="p-4 flex-col space-y-10">
+      <motion.div
+        className="p-4 flex-col space-y-10"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 20 }}
+      >
+        <h1 className="text-3xl font-semibold text-center mt-2">Dashboard</h1>
         <UserKPIs users={users} tasks={tasks} />
         <AdminSearch users={users} tasks={tasks} />
         <Graphs tasks={tasks} users={users} />
         <Upcoming tasks={tasks} users={users} />
-      </div>
+      </motion.div>
     </>
   );
 };

@@ -153,12 +153,12 @@ export const addResponse = [
   },
 ];
 
-// Update Status
+// Update Status & CompletedAt
 export const updateStatus = [
   verifyToken,
   async (req, res) => {
     try {
-      const { status } = req.body;
+      const { status, completedAt = new Date() } = req.body;
 
       if (!status) {
         return res.status(400).json({ message: "status is required" });
@@ -170,6 +170,7 @@ export const updateStatus = [
       }
 
       task.status = status;
+      task.completedAt = completedAt;
       const updatedTask = await task.save();
 
       res.status(200).json(updatedTask);
