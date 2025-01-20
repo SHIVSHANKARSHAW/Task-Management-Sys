@@ -118,7 +118,6 @@ export const loginUser = async (req, res) => {
       maxAge: 24 * 60 * 60 * 1000,
       httpOnly: true,
       secure: process.env.NODE_ENV === "production", 
-      sameSite: "strict", 
     });
     res.status(200).json({ message: "Login successful", token });
   } catch (error) {
