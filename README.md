@@ -35,3 +35,6 @@ User Calendar
 
 User Task List
 ![Screenshot 2025-01-20 154843](https://github.com/user-attachments/assets/cebb08f9-6e7d-4270-885d-92268fd1dd35)
+
+Mark Task As Completed and Add Response if any 
+![Screenshot 2025-01-20 151553](https://github.com/user-attachments/assets/cafa10c5-b533-456e-b3a4-d28617a16b7b)
