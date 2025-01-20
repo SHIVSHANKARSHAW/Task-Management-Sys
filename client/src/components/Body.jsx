@@ -18,7 +18,7 @@ import UserContext from "../context/ContextApi";
 const Body = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
-  const user = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
