@@ -10,14 +10,10 @@ const HomePage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (user) {
-      if (user.access === "admin") {
-        navigate("/home/admin/dashboard");
-      } else {
-        navigate("/home/dashboard");
-      }
+    if (user.access === "admin") {
+      navigate("/home/admin/dashboard");
     } else {
-      navigate("/auth/login");
+      navigate("/home/dashboard");
     }
   }, [user]);
 

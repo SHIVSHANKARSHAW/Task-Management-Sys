@@ -12,14 +12,16 @@ const Navbar = () => {
 
   const navigate = useNavigate();
 
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
 
   const submitHandler = async () => {
     try {
       localStorage.removeItem("token");
+      setUser(null);
       const response = await axios.post("/users/logout");
       toast.success("Logged Out Successful");
       navigate("/auth/login");
+      location.reload();
     } catch (error) {
       if (error.response) {
         toast.error("Error: " + error.response.data.message);

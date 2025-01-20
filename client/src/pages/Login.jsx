@@ -5,53 +5,31 @@ import { useForm } from "react-hook-form";
 import axios from "../helpers/AxiosSetup";
 import toast from "react-hot-toast";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import Loader from "../components/Loader";
 import UserContext from "../context/ContextApi";
-import Loader from "../components/Loader"; // Importing the Loader component
 
 const Login = () => {
   const { register, handleSubmit, errors } = useForm();
   const [showPassword, setShowPassword] = useState(false);
-  const [loggedinUser, setLoggedinUser] = useState(false);
-  const [isLoading, setIsLoading] = useState(false); // State for loading
-
-  const setUser = useContext(UserContext);
+  const [isLoading, setIsLoading] = useState(false);
+  const { setUser } = useContext(UserContext); 
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
-  const fetchUserDetails = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      if (token) {
-        const response = await axios.get("/users/current", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        console.log("Fetched user data:", response.data);
-        setLoggedinUser(response.data);
-      } else {
-        console.log("No token found in localStorage");
-      }
-    } catch (error) {
-      toast.error("Error fetching user details:", error);
-      console.error("Error fetching user details:", error);
-    }
-  };
-
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
-    setIsLoading(true); // Set loading to true
+    setIsLoading(true);
     try {
       const response = await axios.post("/users/login", data);
-      const { token } = response.data;
+      const { token, user } = response.data; 
       localStorage.setItem("token", token);
-      fetchUserDetails();
-      setUser(loggedinUser);
+      setUser(user); 
       toast.success("Login Successful");
-      navigate("/home/dashboard");
+      navigate("/");
+      location.reload();
     } catch (error) {
       if (error.response) {
         toast.error("Error: " + error.response.data.message);
@@ -61,13 +39,13 @@ const Login = () => {
         toast.error("An error occurred");
       }
     } finally {
-      setIsLoading(false); 
+      setIsLoading(false);
     }
   };
 
   return (
     <>
-      {isLoading ? ( 
+      {isLoading ? (
         <Loader />
       ) : (
         <div className="h-screen flex justify-center items-center ">

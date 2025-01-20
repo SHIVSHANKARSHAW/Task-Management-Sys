@@ -31,8 +31,13 @@ export const UserProvider = ({ children }) => {
     fetchUserDetails();
   }, []);
 
+  // Function to update user context
+  const updateUserContext = (userData) => {
+    setUser(userData);
+  };
+
   return (
-    <UserContext.Provider value={{ user, setUser }}>
+    <UserContext.Provider value={{ user, setUser: updateUserContext }}>
       {children}
     </UserContext.Provider>
   );
