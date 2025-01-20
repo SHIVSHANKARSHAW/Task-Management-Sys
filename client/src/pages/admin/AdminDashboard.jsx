@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import UserKPIs from "../../components/UserKPIs";
 import AdminSearch from "../../components/AdminSearch";
 import axios from "../../helpers/AxiosSetup";
-import { useUser } from "../../context/ContextApi";
+import UserContext from "../../context/ContextApi";
 import Graphs from "../../components/Graphs";
 import Upcoming from "../../components/Upcoming";
 import { motion } from "framer-motion";
@@ -10,7 +10,7 @@ import { motion } from "framer-motion";
 const AdminDashboard = () => {
   const [tasks, setTasks] = useState([]);
   const [users, setUsers] = useState([]);
-  const { user } = useUser();
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     const fetchTasks = async () => {

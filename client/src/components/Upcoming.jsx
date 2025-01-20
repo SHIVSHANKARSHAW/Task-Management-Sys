@@ -60,9 +60,7 @@ const Upcoming = ({ tasks }) => {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-semibold text-center">
-        Upcoming Tasks
-      </h1>
+      <h1 className="text-2xl font-semibold text-center">Upcoming Tasks</h1>
       <div>
         <h2 className="text-xl font-bold mb-2">Today</h2>
         <div className="bg-white text-black rounded-lg shadow-md space-y-1">

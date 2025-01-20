@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import axios from "../helpers/AxiosSetup";
-import { useUser } from "../context/ContextApi";
+import UserContext from "../context/ContextApi";
 import { useNavigate } from "react-router-dom";
 
 const localizer = momentLocalizer(moment);
 
 const Calender = () => {
   const [events, setEvents] = useState([]);
-  const { user } = useUser();
+  const{ user }= useContext(UserContext);
   const navigate = useNavigate();
 
   useEffect(() => {

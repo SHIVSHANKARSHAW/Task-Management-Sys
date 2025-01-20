@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { AiOutlineMenuFold, AiOutlineMenuUnfold } from "react-icons/ai";
 import { motion, AnimatePresence } from "framer-motion";
@@ -13,17 +13,17 @@ import Error from "../pages/Error";
 import TaskData from "./TaskData";
 import AdminDashboard from "../pages/admin/AdminDashboard";
 import AdminCreateTask from "../pages/admin/AdminCreateTask";
-import { useUser } from "../context/ContextApi";
+import UserContext from "../context/ContextApi";
 
 const Body = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
-  const { user } = useUser();
+  const user = useContext(UserContext);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
-  // h-[78vh] 
+  
   return (
     <div className="flex h-screen w-screen gap-4 px-10 ">
       {/* Sidebar */}

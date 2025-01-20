@@ -1,17 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import Paper from "@mui/material/Paper";
 import { Link } from "react-router-dom";
 import axios from "../helpers/AxiosSetup";
-import { useUser } from "../context/ContextApi";
+import UserContext from "../context/ContextApi";
 import Button from "../components/Button";
 import moment from "moment-timezone";
-
 
 const Tasks = () => {
   const [tasks, setTasks] = useState([]);
   const [users, setUsers] = useState([]);
-  const { user } = useUser();
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     const fetchTasks = async () => {

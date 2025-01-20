@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Button from "../components/Button";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "../helpers/AxiosSetup";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { useUser } from "../context/ContextApi";
+import UserContext from "../context/ContextApi";
 
 const CreateTask = () => {
   const [title, setTitle] = useState("");
@@ -13,7 +13,7 @@ const CreateTask = () => {
   const [dueDate, setDueDate] = useState(new Date());
   const [description, setDescription] = useState("");
   const navigate = useNavigate();
-  const { user } = useUser();
+  const { user } = useContext(UserContext);
 
   if (user === null) {
     navigate("/auth/login");

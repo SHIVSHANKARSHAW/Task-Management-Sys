@@ -1,17 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { motion } from "framer-motion";
-
 import UserKPIs from "../components/UserKPIs";
 import Upcoming from "../components/Upcoming";
 import Graphs from "../components/Graphs";
 import Search from "../components/Search";
 import axios from "../helpers/AxiosSetup";
-import { useUser } from "../context/ContextApi";
+import UserContext from "../context/ContextApi";
 
 const Dashboard = () => {
   const [tasks, setTasks] = useState([]);
   const [users, setUsers] = useState([]);
-  const { user } = useUser();
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -59,14 +58,12 @@ const Dashboard = () => {
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 20 }}
       >
-
         <h1 className="text-3xl font-semibold text-center mt-2">Dashboard</h1>
         <UserKPIs tasks={tasks} users={users} />
         <Search tasks={tasks} users={users} />
         <Graphs tasks={tasks} users={users} />
         <Upcoming tasks={tasks} users={users} />
       </motion.div>
-
     </>
   );
 };

@@ -36,7 +36,8 @@ const Graphs = ({ tasks }) => {
     {
       name: "Task Overdue",
       value: tasks.filter(
-        (task) => task.status === 0 && moment(task.dueDate).isBefore(moment(), 'day')
+        (task) =>
+          task.status === 0 && moment(task.dueDate).isBefore(moment(), "day")
       ).length,
     },
   ];
@@ -55,7 +56,7 @@ const Graphs = ({ tasks }) => {
     acc[month].TasksAssigned += 1;
     if (task.status === 0) {
       acc[month].Pending += 1;
-      if (moment(task.dueDate).isBefore(moment(), 'day')) {
+      if (moment(task.dueDate).isBefore(moment(), "day")) {
         acc[month].Overdue += 1;
       }
     } else if (task.status === 1) {
@@ -82,9 +83,7 @@ const Graphs = ({ tasks }) => {
 
   return (
     <div className="flex flex-col items-center space-y-8 bg-white text-black py-4 rounded-md">
-      <h1 className="text-center text-2xl font-semibold">
-        Task Stats
-      </h1>
+      <h1 className="text-center text-2xl font-semibold">Task Stats</h1>
       <div className="flex flex-wrap justify-center space-x-8">
         <motion.div
           className="flex flex-col items-center"
@@ -124,7 +123,9 @@ const Graphs = ({ tasks }) => {
           variants={chartVariants}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <h2 className="text-lg font-medium mb-4">Tasks Assigned Month-wise</h2>
+          <h2 className="text-lg font-medium mb-4">
+            Tasks Assigned Month-wise
+          </h2>
           <ResponsiveContainer width={700} height={400}>
             <BarChart data={tasksByMonthData}>
               <CartesianGrid strokeDasharray="3 3" />

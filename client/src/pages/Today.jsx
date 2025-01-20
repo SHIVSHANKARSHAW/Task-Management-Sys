@@ -1,18 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import Paper from "@mui/material/Paper";
 import axios from "../helpers/AxiosSetup";
-import { useUser } from "../context/ContextApi";
+import UserContext from "../context/ContextApi";
 import moment from "moment-timezone";
 import Button from "../components/Button";
 import { Link } from "react-router-dom";
 
-
-
 const Today = () => {
   const [tasks, setTasks] = useState([]);
   const [users, setUsers] = useState([]);
-  const { user } = useUser();
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -23,11 +21,11 @@ const Today = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        const today = moment().tz("Asia/Kolkata").startOf('day');
+        const today = moment().tz("Asia/Kolkata").startOf("day");
         const userTasks = response.data.filter(
-          (task) => 
+          (task) =>
             task.assignedTo === user._id &&
-            moment(task.dueDate).tz("Asia/Kolkata").isSame(today, 'day')
+            moment(task.dueDate).tz("Asia/Kolkata").isSame(today, "day")
         );
         setTasks(userTasks);
       } catch (error) {

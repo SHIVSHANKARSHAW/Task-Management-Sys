@@ -133,39 +133,6 @@ export const logoutUser = (req, res) => {
 };
 
 // Update user by ID
-// export const updateUserById = [
-//   verifyToken,
-//   async (req, res) => {
-//     try {
-//       const {
-//         username,
-//         email,
-//         password,
-//         access,
-//         tasksAssigned,
-//         tasksCompleted,
-//       } = req.body;
-//       console.log("Received body:", req.body);
-//       const user = await User.findById(req.params.id);
-//       if (!user) {
-//         return res.status(404).json({ message: "User not found" });
-//       }
-//       user.username = username;
-//       user.email = email;
-//       user.access = access;
-//       user.tasksAssigned = tasksAssigned;
-//       user.tasksCompleted = tasksCompleted;
-//       if (password) {
-//         user.password = await bcrypt.hash(password, 10);
-//       }
-//       const updatedUser = await user.save();
-//       res.status(200).json(updatedUser);
-//     } catch (error) {
-//       res.status(400).json({ message: error.message });
-//     }
-//   },
-// ];
-
 export const updateUserById = [
   verifyToken,
   async (req, res) => {

@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Button from "../../components/Button";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "../../helpers/AxiosSetup";
 import toast from "react-hot-toast";
-import { useUser } from "../../context/ContextApi";
+import UserContext from "../../context/ContextApi";
 
 const AdminCreateTask = () => {
   const [title, setTitle] = useState("");
@@ -13,7 +13,7 @@ const AdminCreateTask = () => {
   const [description, setDescription] = useState("");
   const [users, setUsers] = useState([]);
   const [assignedTo, setAssignedTo] = useState("");
-  const { user } = useUser();
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     const fetchUsers = async () => {

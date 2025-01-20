@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { motion } from "framer-motion";
-import { useUser } from "../context/ContextApi";
+import UserContext from "../context/ContextApi";
 
 const Profile = () => {
-
-  const { user } = useUser();
+  const { user } = useContext(UserContext);
 
   return (
     <div className="flex justify-center items-center text-white">
@@ -49,11 +48,12 @@ const Profile = () => {
           </motion.p>
         </motion.div>
       ) : (
-        <p className="flex h-full place-content-center">Loading user details...</p>
+        <p className="flex h-full place-content-center">
+          Loading user details...
+        </p>
       )}
     </div>
   );
 };
 
 export default Profile;
-

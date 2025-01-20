@@ -1,21 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "./Button";
 import axios from "../helpers/AxiosSetup";
 import toast from "react-hot-toast";
+import logo from "../assets/logo.png";
+import UserContext from "../context/ContextApi";
 
 const Navbar = () => {
-  const img =
-    "https://images.pexels.com/photos/30180551/pexels-photo-30180551/free-photo-of-aerial-view-of-car-tire-tracks-on-snowy-surface.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
   const profile =
     "https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
 
   const navigate = useNavigate();
 
+  const { user } = useContext(UserContext);
+
   const submitHandler = async () => {
     try {
-      const response = await axios.post("/users/logout");
       localStorage.removeItem("token");
+      const response = await axios.post("/users/logout");
       toast.success("Logged Out Successful");
       navigate("/auth/login");
     } catch (error) {
@@ -33,12 +35,24 @@ const Navbar = () => {
     <nav className="backdrop-blur-xl border-gray-200 w-[95%] mt-5 mb-5 rounded-lg shadow-xl">
       <div className="flex flex-wrap items-center justify-between mx-auto p-2">
         <div>
-          <Link to="/home" className="flex items-center space-x-3">
-            <img src={img} className="h-12 w-12 rounded-full" alt="Logo" />
-            <span className="self-center text-4xl font-semibold whitespace-nowrap text-white">
-              TaskHive
-            </span>
-          </Link>
+          {user & (user.access === "user") ? (
+            <Link to="/home/dashboard" className="flex items-center space-x-3">
+              <img src={logo} className="h-12 w-12 rounded-full " alt="Logo" />
+              <span className="self-center text-4xl font-semibold whitespace-nowrap text-white">
+                TaskHive
+              </span>
+            </Link>
+          ) : (
+            <Link
+              to="/home/admin/dashboard"
+              className="flex items-center space-x-3"
+            >
+              <img src={logo} className="h-12 w-12 rounded-full " alt="Logo" />
+              <span className="self-center text-4xl font-semibold whitespace-nowrap text-white">
+                TaskHive
+              </span>
+            </Link>
+          )}
         </div>
         <div className="flex items-center gap-10">
           <div>

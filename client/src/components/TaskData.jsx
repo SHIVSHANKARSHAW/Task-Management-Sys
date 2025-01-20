@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import { useParams } from "react-router-dom";
 import axios from "../helpers/AxiosSetup";
 import toast from "react-hot-toast";
 import Button from "./Button";
-import { useUser } from "../context/ContextApi";
 import moment from "moment";
+import UserContext from "../context/ContextApi";
+
 
 const TaskData = () => {
   const { id } = useParams();
@@ -12,7 +13,7 @@ const TaskData = () => {
   const [response, setResponse] = useState("");
   const [showResponse, setShowResponse] = useState(false);
   const [users, setUsers] = useState([]);
-  const { user } = useUser();
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     const fetchTask = async () => {

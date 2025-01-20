@@ -1,17 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import Paper from "@mui/material/Paper";
 import { Link } from "react-router-dom";
-import { useUser } from "../context/ContextApi";
 import Button from "../components/Button";
 import { FaSearch } from "react-icons/fa";
 import moment from "moment-timezone";
-
+import UserContext from "../context/ContextApi";
 
 const AdminSearch = ({ tasks, users }) => {
   const [searchTerm, setSearchTerm] = useState("");
 
-  const { user } = useUser();
+  const { user } = useContext(UserContext);
 
   const getUserNameById = (userId) => {
     const user = users.find((user) => user._id === userId);
@@ -38,7 +37,7 @@ const AdminSearch = ({ tasks, users }) => {
     { field: "description", headerName: "Description", width: 150 },
     { field: "assignedTo", headerName: "Assigned To", width: 120 },
     { field: "assignedBy", headerName: "Assigned By", width: 120 },
-  
+
     {
       field: "actions",
       headerName: "Actions",
@@ -78,7 +77,7 @@ const AdminSearch = ({ tasks, users }) => {
         />
         <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
       </div>
-      <Paper style={{ height: 400, width: "100%" }}>
+      <Paper style={{ height: 600, width: "100%" }}>
         <DataGrid rows={rows} columns={columns} pageSize={5} />
       </Paper>
     </div>

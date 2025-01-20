@@ -1,12 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import Navbar from "../components/Navbar";
 import Body from "../components/Body";
-import { useUser } from "../context/ContextApi";
-import { useNavigate } from 'react-router-dom';
+import UserContext from "../context/ContextApi";
+import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 
 const HomePage = () => {
-  const { user } = useUser();
+  const { user } = useContext(UserContext);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,15 +23,15 @@ const HomePage = () => {
 
   return (
     <>
-    <div className="min-h-screen w-full flex flex-col items-center">
-      {/* Navbar */}
-      <Navbar />
-      {/* Body */}
-      <div>
-        <Body />
+      <div className="min-h-screen w-full flex flex-col items-center">
+        {/* Navbar */}
+        <Navbar />
+        {/* Body */}
+        <div>
+          <Body />
+        </div>
       </div>
-    </div>
-    <Footer />
+      <Footer />
     </>
   );
 };
