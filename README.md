@@ -4,12 +4,12 @@ Credentials
 
 Admin
 admin@admin.com
-\admin
+pass : admin
 
 User One
 user@one.com
-\userone
+pass : userone
 
 User Two
 user@two.com
-\usertwo
+pass : usertwo
